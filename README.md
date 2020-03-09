@@ -1,1 +1,2 @@
-# uri-22.github.io
+# Capital One Restaurant Tool
+By Uriel Sejas

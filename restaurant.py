@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import requests
 
 
@@ -40,17 +40,12 @@ def top():
         lat = request.form['lat']
         long = request.form['long']
         response = requests.get(API_HOST+"term=restaurant&latitude={}&longitude={}".format(lat, long), headers={"Authorization": "Bearer {}".format(TOKEN)}).json()
-
         businesses = response['businesses']
-
-        sortedBusiness = sorted(businesses, key=lambda k: k['rating'])
-
+        sortedBusiness = sorted(businesses, key=lambda k: k['rating'], reverse=True)
         num_bus = []
-
         for i in range(3):
             num_bus.append(sortedBusiness[i])
-
-        return render_template("top.html", places=num_bus)
+        return jsonify(num_bus)
 
 
 
